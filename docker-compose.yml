@@ -1,0 +1,44 @@
+version: '2.2'
+services:
+  pacsdb:
+    build:
+      context: ./pacsdb
+      network: host
+    image: pacsdb
+    expose:
+      - "5432"
+  dicomsrv:
+    build:
+      context: ./conquest
+      network: host 
+    image: host
+    depends_on:
+      - pacsdb
+    expose:
+      - "5678"
+    ports:
+      - '104:5678'
+    volumes:
+      - ./conquest/data:/opt/conquest/data
+  wado:
+    build:
+      context: ./wado
+      network: host
+    image: wado
+    depends_on:
+      - dicomsrv
+    expose:
+      - "80"
+#  viewer:
+#    build:
+#      context: ./oviyam
+#      network: host
+#    image: viewer
+#    depends_on:
+#      - wado
+#    expose:
+#      - "8080"
+#      - "1025"
+#    ports:
+#      - '8081:8080'
+
