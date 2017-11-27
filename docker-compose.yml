@@ -11,7 +11,7 @@ services:
     build:
       context: ./conquest
       network: host 
-    image: host
+    image: dicomsrv
     depends_on:
       - pacsdb
     expose:
