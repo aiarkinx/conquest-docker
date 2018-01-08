@@ -18,7 +18,7 @@ kFactorFile              = dicom.sql
 SOPClassList             = dgatesop.lst
 
 # Host for postgres or mysql only, name, username and password for database
-SQLHost                  = pacsdb 
+SQLHost                  = localhost
 SQLServer                = conquestdb
 Username                 = conquest
 Password                 = conquestpass
@@ -27,6 +27,7 @@ MySQL                    = 0
 SQLite                   = 0
 
 UseEscapeStringConstants = 1
+
 DoubleBackSlashToDB      = 1
 #IndexDBF                = 1
 #PackDBF                 = 0

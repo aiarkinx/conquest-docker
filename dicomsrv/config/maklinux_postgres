@@ -8,10 +8,10 @@ sleep 0.2s
 cp dicom.ini.postgres dicom.ini
 cp dicom.sql.postgres dicom.sql
 
-sudo cp dgate /usr/lib/cgi-bin
-sudo cp dicom.sql /usr/lib/cgi-bin
-sudo cp acrnema.map /usr/lib/cgi-bin
-sudo cp -r webserver/cgi-bin/* /usr/lib/cgi-bin
-sudo cp dicom.ini.www /usr/lib/cgi-bin/dicom.ini
+#sudo cp dgate /usr/lib/cgi-bin
+#sudo cp dicom.sql /usr/lib/cgi-bin
+#sudo cp acrnema.map /usr/lib/cgi-bin
+#sudo cp -r webserver/cgi-bin/* /usr/lib/cgi-bin
+#sudo cp dicom.ini.www /usr/lib/cgi-bin/dicom.ini
 
-sudo cp -r webserver/htdocs/* /var/www
+#sudo cp -r webserver/htdocs/* /var/www

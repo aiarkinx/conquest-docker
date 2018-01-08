@@ -1,6 +1,6 @@
 export LD_LIBRARY_PATH="/usr/include/postgresql"
 gcc -o lua.o -c lua_5.1.4/all.c -Ilua_5.1.4 -DLUA_USE_DLOPEN -DLUA_USE_POSIX
-g++ -I/usr/include/postgresql -DUNIX -DNATIVE_ENDIAN=1 -DHAVE_LIBJASPER -DHAVE_LIBJPEG -DPOSTGRES -Wno-write-strings total.cpp lua.o -o dgate -lpthread -L/usr/local/pgsql/lib -lpq  -ljasper -ljpeg -Ijpeg-6c -Ljpeg-6c -Ilua_5.1.4 -Wno-multichar -ldl
+g++ -I/usr/include/postgresql -DUNIX -DNATIVE_ENDIAN=1 -DHAVE_LIBJASPER -DHAVE_LIBJPEG -DPOSTGRES -Wno-write-strings total.cpp lua.o -o dgate -lpthread -L/usr/local/pgsql/lib -lpq  -ljasper -ljpeg -Ijpeg-6c -Ljpeg-6c -Ilua_5.1.4 -Wno-multichar  -ldl
 rm lua.o
 pkill -9 dgate
 sleep 0.2s

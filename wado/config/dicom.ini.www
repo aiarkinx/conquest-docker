@@ -23,7 +23,7 @@ TruncateFieldNames       = 10
 # default IP address and port of DICOM server (may be non-local, web pages empty if wrong)
 # use version 1.4.14 up, if an older version some feautues will not work
 
-WebServerFor             = dicomsrv
+WebServerFor             = localhost 
 TCPPort                  = 5678
 
 
@@ -44,7 +44,7 @@ WebScriptAddress         = http://127.0.0.1/cgi-bin/dgate.exe
 
 # if set to 1, the web user cannot edit databases and (in future) other things
 
-#WebReadonly              = 1
+WebReadonly              = 0
 
 
 # this is an optional virtual directory used to http: all images from mag0
