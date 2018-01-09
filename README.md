@@ -1,6 +1,6 @@
-docker build -t dicomsrv ./dicomsrv/
+docker build -t dicomsrv --network=host ./dicomsrv/
 
-docker build -t wado ./wado/
+docker build -t wado --network=host ./wado/
 
 
 

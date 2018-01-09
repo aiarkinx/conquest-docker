@@ -34,7 +34,7 @@ RUN a2enmod cgi
 
 EXPOSE 80 5678
 
-CMD ["apache2", "-D", "FOREGROUND"]
+CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
 
 
 
