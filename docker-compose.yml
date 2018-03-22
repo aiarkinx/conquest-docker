@@ -1,21 +1,19 @@
 version: '2.2'
 services:
   pacsdb:
-    build:
-      context: ./pacsdb
-      network: host
-    image: pacsdb
-    expose:
-      - "5432"
+    image: postgres:9.6
+    container_name: pacsdb
+    environment:
+      POSTGRES_DB: conquestdb
+      POSTGRES_USER: conquest
+      POSTGRES_PASSWORD: conquestpass
   dicomsrv:
     build:
       context: ./conquest
-      network: host 
+      network: host
     image: dicomsrv
     depends_on:
       - pacsdb
-    expose:
-      - "5678"
     ports:
       - '104:5678'
     volumes:
@@ -41,4 +39,3 @@ services:
 #      - "1025"
 #    ports:
 #      - '8081:8080'
-
