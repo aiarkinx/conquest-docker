@@ -1,0 +1,47 @@
+#!/bin/bash
+# mvh 20160425 for 1.4.19beta
+# mvh 20160516 use ln -s for shared server/webserver configs
+# mvh 20161117 back to cp, added chmod for src/dgate/jpeg-6c/configure
+# mvh 20161122 Fixed order of newweb copy
+# mvh 20170211 Fix include paths in mysql option
+# mvh 20170504 Set rights for web folder; document mariadb lib link (but commented out)
+# mvh 20181117 Added luasocket to compile
+
+#DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+SRC=./src/dgate;
+CONF=./linux/conf;
+LINUX=./linux;
+
+chmod 777 src/dgate/jpeg-6c/configure
+cd src/dgate/jpeg-6c
+./configure
+make
+sudo make install
+cd ../../..
+
+chmod 777 src/dgate/luasocket/amake.sh;
+cd src/dgate/luasocket;
+./amake.sh;
+cd ../../..
+
+export LD_LIBRARY_PATH="/usr/include/postgresql/";
+gcc -o $SRC/lua.o -c $SRC/lua_5.1.5/all.c -I$SRC/lua_5.1.5 -DLUA_USE_DLOPEN -DLUA_USE_POSIX;
+g++ -std=c++11 -o $SRC/charls.o -c $SRC/charls/all.cpp -I$SRC/charls
+gcc -o $SRC/openjpeg.o -c $SRC/openjpeg/all.c -I$SRC/openjpeg
+g++ -std=c++11 -I/usr/include/postgresql/ -DUNIX -DNATIVE_ENDIAN=1 -DHAVE_LIBJPEG -DPOSTGRES -DHAVE_LIBCHARLS -DHAVE_LIBOPENJPEG2 -Wno-write-strings $SRC/lua.o $SRC/luasocket/luasocket.a $SRC/charls.o $SRC/openjpeg.o -o dgate -lpthread -ldl -I$SRC/src $SRC/src/total.cpp -I$SRC/dicomlib -L/usr/local/pgsql/lib -lpq  -ljpeg -I$SRC/jpeg-6c -L$SRC/jpeg-6c -I$SRC/lua_5.1.5 -I$SRC/openjpeg -I$SRC/charls -Wno-multichar;
+
+
+rm $SRC/lua.o;
+rm $SRC/charls.o;
+rm $SRC/openjpeg.o;
+
+pkill -9 dgate;
+sleep 0.2s;
+
+cp $CONF/dicom.ini.postgres dicom.ini;
+cp $CONF/dicom.sql.postgres dicom.sql;
+
+cp $LINUX/acrnema.map acrnema.map;
+cp $LINUX/dgatesop.lst dgatesop.lst;
+
+mkdir data/dbase

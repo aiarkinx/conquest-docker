@@ -1,12 +1,13 @@
 # Pull OS image
 
-FROM ubuntu:16.04
+FROM ubuntu:18.04
 
 # Устанавливаем зависимости
 RUN apt -y update && apt -y install wget \
+ build-essential\
  g++\
- make\
  lua5.1\
+ p7zip-full\
  sudo\
  libpq-dev
 
@@ -17,20 +18,16 @@ RUN mkdir -p /opt/conquest/config; mkdir /usr/local/man/man1
 
 WORKDIR /opt/conquest
 
-RUN wget https://ingenium.home.xs4all.nl/dicomserver/conquestlinux1417e2.tar.gz; tar -xvf *gz
+RUN wget https://ingenium.home.xs4all.nl/dicomserver/dicomserver1419c1.zip; 7z x *.zip
 
-COPY ./config ./config
+COPY ./maklinux ./
 
-RUN cp ./config/* ./ 
+RUN chmod +x ./maklinux; ./maklinux
 
-RUN cd ./jpeg-6c; ./configure; make; make install
+COPY ./docker-entrypoint.sh ./docker-entrypoint.sh
 
-RUN cd ./jasper-1.900.1-6ct; ./configure; make; make install
-
-RUN ./maklinux_postgres
-
+RUN chmod +x ./docker-entrypoint.sh
 
 EXPOSE 5678
 
-CMD ["/opt/conquest/dgate", "-v"]
-
+ENTRYPOINT ["/opt/conquest/docker-entrypoint.sh"]

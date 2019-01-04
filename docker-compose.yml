@@ -1,41 +1,35 @@
 version: '2.2'
 services:
   pacsdb:
-    image: postgres:9.6
+    image: postgres:11
     container_name: pacsdb
     environment:
       POSTGRES_DB: conquestdb
       POSTGRES_USER: conquest
       POSTGRES_PASSWORD: conquestpass
+    networks:
+      - dcmnet
+
   dicomsrv:
     build:
-      context: ./conquest
-      network: host
-    image: dicomsrv
+      context: ./dicomsrv
+    image: dicomsrv:v19c1
+    container_name: dicomsrv
     depends_on:
       - pacsdb
     ports:
       - '104:5678'
+    environment:
+      SQL_CONTAINER_NAME: pacsdb
+      DB_NAME: conquestdb
+      DB_USERNAME: conquest
+      DB_PASSWORD: conquestpass
     volumes:
-      - ./conquest/data:/opt/conquest/data
-  wado:
-    build:
-      context: ./wado
-      network: host
-    image: wado
-    depends_on:
-      - dicomsrv
-    expose:
-      - "80"
-#  viewer:
-#    build:
-#      context: ./oviyam
-#      network: host
-#    image: viewer
-#    depends_on:
-#      - wado
-#    expose:
-#      - "8080"
-#      - "1025"
-#    ports:
-#      - '8081:8080'
+      - /srv/data/images/:/opt/conquest/data
+    networks:
+      - dcmnet
+      
+networks:
+  dcmnet:
+    external:
+      name: dcmnet
