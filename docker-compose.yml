@@ -1,34 +1,39 @@
-version: '2.2'
+version: '3'
 services:
   pacsdb:
-    image: postgres:11
+    image: postgres:12.2
     container_name: pacsdb
     environment:
       POSTGRES_DB: conquestdb
-      POSTGRES_USER: conquest
+      POSTGRES_USER: conquestuser
       POSTGRES_PASSWORD: conquestpass
     networks:
       - dcmnet
 
   dicomsrv:
     build:
-      context: ./dicomsrv
-    image: dicomsrv:v19c1
+      context: ./
+      args:
+        DBMS: postgres
+    image: dicomsrv:v1.15.0_1
     container_name: dicomsrv
     depends_on:
       - pacsdb
     ports:
       - '104:5678'
     environment:
-      SQL_CONTAINER_NAME: pacsdb
+      AE_TITLE: DICOMSRV
+      SQL_HOST: pacsdb
       DB_NAME: conquestdb
       DB_USERNAME: conquest
       DB_PASSWORD: conquestpass
+      INCOMING_COMPRESSION: un
+      FILE_NAME_SYNTAX: 6
     volumes:
       - /srv/data/images/:/opt/conquest/data
     networks:
       - dcmnet
-      
+
 networks:
   dcmnet:
     external:
