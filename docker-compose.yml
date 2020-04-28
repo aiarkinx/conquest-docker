@@ -11,11 +11,11 @@ services:
       - dcmnet
 
   dicomsrv:
-    build:
-      context: ./
-      args:
-        DBMS: postgres
-    image: dicomsrv:v1.15.0_1
+    # build:
+    #   context: ./
+    #   args:
+    #     DBMS: postgres
+    image: iarkin/conquest-postgres:v1.15.0_2
     container_name: dicomsrv
     depends_on:
       - pacsdb
@@ -25,7 +25,7 @@ services:
       AE_TITLE: DICOMSRV
       SQL_HOST: pacsdb
       DB_NAME: conquestdb
-      DB_USERNAME: conquest
+      DB_USERNAME: conquestuser
       DB_PASSWORD: conquestpass
       INCOMING_COMPRESSION: un
       FILE_NAME_SYNTAX: 6

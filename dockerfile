@@ -23,7 +23,7 @@ RUN wget https://ingenium.home.xs4all.nl/dicomserver/dicomserver150.zip && unzip
 
 
 
-COPY ./maklinux.$DBMS ./maklinux
+COPY ./makeconquest/maklinux.$DBMS ./maklinux
 
 RUN chmod +x ./maklinux; ./maklinux
 

@@ -1,4 +1,4 @@
-### Image build Environments
+### Image build Arguments
 **DBMS:** используемая СУБД
 - mariadb
 - postgres
@@ -9,10 +9,15 @@
 ### Container Environments
 
 **AE_TITLE:**
+
 **SQL_HOST:**
+
 **DB_NAME:**
+
 **DB_USERNAME:**
+
 **DB_PASSWORD:**
+
 **INCOMING_COMPRESSION:**
 - un - uncompressed
 - j1,j2=lossless jpeg
