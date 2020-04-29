@@ -7,8 +7,7 @@ INICONFIG=dicom.ini
 DICOMHOSTSCONFIG=acrnema.map
 SQLCONFIG=dicom.sql
 
-if  [[ -f "$VOLUMEDIR/$INICONFIG" ]]
-then
+if  [ -f "$VOLUMEDIR/$INICONFIG" ]; then
   cp $VOLUMEDIR/$INICONFIG ./
 else
 
@@ -23,12 +22,12 @@ sed  's/^\(FileNameSyntax\s*= \).*$/\1'"$FILE_NAME_SYNTAX"'/' -i $INICONFIG
 fi
 
 
-if [[ -f "$VOLUMEDIR/$DICOMHOSTSCONFIG" ]]; then
+if [ -f "$VOLUMEDIR/$DICOMHOSTSCONFIG" ]; then
   cp $VOLUMEDIR/$DICOMHOSTSCONFIG ./
 fi
 
 
-if [[ -f "$VOLUMEDIR/$SQLCONFIG" ]]; then
+if [ -f "$VOLUMEDIR/$SQLCONFIG" ]; then
 cp $VOLUMEDIR/$SQLCONFIG ./
 fi
 
