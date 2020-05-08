@@ -57,3 +57,11 @@ filename = Name_ID\Modality_StudyID\ SeriesID\Imageuid.dcm
 
 #### Rebuild базы, при первом запуске
 docker exec -ti dicomsrv ./dgate -v -r
+
+### For run the lua scripts Environments
+- move_studies.lua - для этого скрипта необходимы переменные:
+  - PATIENT_ID  
+  - MODALITY
+
+Запустить контейнер с этими параметрами, потом сделать docker exec -ti {{ container_name }} ./dgate --dolua:lua/{{ script_name }}
+Переменные должны быть заполнены, если значение любое указать ''

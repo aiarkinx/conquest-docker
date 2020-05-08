@@ -29,10 +29,9 @@ RUN chmod +x ./maklinux; ./maklinux
 
 COPY ./config/* ./
 
-# COPY ./lua/* ./lua/
+COPY ./lua/* ./lua/
 
 RUN chmod +x ./docker-entrypoint.sh
 
-EXPOSE 5678
 
 ENTRYPOINT ["/opt/conquest/docker-entrypoint.sh"]

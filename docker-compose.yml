@@ -11,11 +11,11 @@ services:
       - dcmnet
 
   dicomsrv:
-    # build:
-    #   context: ./
-    #   args:
-    #     DBMS: postgres
-    image: iarkin/conquest-postgres:v1.15.0_2
+    build:
+      context: ./
+      args:
+        DBMS: postgres
+    image: iarkin/conquest-postgres:v1.15.0_3.1
     container_name: dicomsrv
     depends_on:
       - pacsdb
